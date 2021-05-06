@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.BooleanField(default=False)
-
+    total_price = models.FloatField(default=0)
     def __str__(self):
         return str(self.user.username) + " " + str(self.total_price)
 

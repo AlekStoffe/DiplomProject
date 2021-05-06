@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import permissions
 import django_filters.rest_framework
+from rest_framework import permissions
 from . import serializers
 from . import models
 
@@ -32,6 +33,12 @@ class CompanyInfoView(generics.ListAPIView):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ['id']
 
+#вывод инфы о компаниия c едой юзера
+class CompanyUserView(generics.ListAPIView):
+    queryset = models.Company.objects.all()
+    serializer_class = serializers.CompanyInfoSerilizers
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ['user']
 
 
 

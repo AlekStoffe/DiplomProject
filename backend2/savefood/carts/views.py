@@ -6,9 +6,9 @@ from django.http import HttpResponse, HttpResponseNotFound
 import django_filters.rest_framework
 from .serializers import *
 from . import models
-
-
 # Create your views here.
+
+
 class CartView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
@@ -21,10 +21,18 @@ class CartView(APIView):
     def post(self, request):
         data = request.data
         user = request.user
-        cart = models.Cart.objects.get(user=user, order=False)
+        cart_user = models.Cart.objects.filter(user=user).values()
         food = models.Food.objects.get(id=data.get('food'))
+
+        # проверка есть ли карта у пользователя, если нет, создание карты
+        if cart_user.count() == 0:
+            cart_user = models.Cart(user=user, order=False)
+            cart_user.save()
+
+        cart = models.Cart.objects.get(user=user, order=False)
+        # проверка на входимость
         c_i = models.CartItem.objects.filter(user=user, cart=cart.id, food=food.pk).values()
-        if not c_i.count():#проверка на входимость
+        if not c_i.count():
             cart_items = models.CartItem(cart=cart, user=user, food=food, price=food.price, quantity=1)
             cart_items.save()
             total_price = 0
@@ -50,7 +58,6 @@ class CartView(APIView):
         data = request.data
         cart_item = models.CartItem.objects.get(id=data.get('id'))
         cart_item.delete()
-
         cart = models.Cart.objects.filter(user=user, order=False).first()
         queryset = models.CartItem.objects.filter(cart=cart)
         serializer = CartItemSerialezers(queryset, many=True)

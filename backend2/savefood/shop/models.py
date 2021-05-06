@@ -31,8 +31,8 @@ class Company(models.Model):
     image = models.ImageField(verbose_name='Фото:', upload_to='images')
     telephone = models.CharField(verbose_name='Телефон:', max_length=11)
     address = models.CharField(verbose_name='Адрес:', max_length=128, blank=True)
-    lat = models.FloatField(verbose_name='Широта:', blank=True)
-    lon = models.FloatField(verbose_name='Долгота:', blank=True)
+    lat = models.FloatField(verbose_name='Широта:', default=0.0)
+    lon = models.FloatField(verbose_name='Долгота:', default=0.0)
     COMPANY_TYPES = (
         (1, 'Кафе/кофейня/бар'),
         (2, 'Ресторан'),

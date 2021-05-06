@@ -8,6 +8,7 @@ urlpatterns = [
     path('main/3', views.FoodListView1.as_view()),    #
 
     path('company/', views.CompanyInfoView.as_view()),  #поиск информации о компании по id (company/?id=) или вывод всех компаний
+    path('company/user/', views.CompanyUserView.as_view()), #поиск компаний по юзеру(user=id)
     path('company/<int:pk>', views.CompanyDetailView.as_view()), #редактирование/удаление компаний
     path('company/create/', views.CompanyCreateView.as_view()), #создание компании
     path('company/map/', views.CompanyMapView.as_view()),  #вывод на карту
