@@ -1,33 +1,36 @@
 from rest_framework import serializers
 from . import models
+
+#---------------------Сериализаторы компаний--------------------------#
+
 #Создание компании
 class CompanyDetailSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Company
         fields = '__all__'
 
-#Карта
+#Карта компаний
 class CompanyMapSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Company
-        fields = ('name', 'image', 'description', 'address', 'lat', 'lon',)
+        fields = ('name', 'image', 'description', 'address', 'lat', 'lon', 'id')
 
-#Лист компаний
-class CompanyListSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = models.Company
-        fields = ('name', 'image', 'description', 'address')
+
+
+
+
 #Еда
-class FoodDetailSerializers(serializers.ModelSerializer):
+class FoodSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Food
         fields = '__all__'
 
-#Вывод инфы о еде
-class FoodSerializers(serializers.ModelSerializer):
+
+#Еда для корзины
+class FoodCartSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Food
-        fields = ('name', 'image', 'description', 'price', 'quantity', 'food_type', 'company')
+        fields = ('name',  'price')
 
 
 #Вывод информации о компании с едой
@@ -36,4 +39,13 @@ class CompanyInfoSerilizers(serializers.ModelSerializer):
     class Meta:
         model = models.Company
         fields = ('name', 'image', 'description', 'address', 'food')
+
+
+
+#Добавление телефона к пользователю
+class TelephoneSerilizers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Profile
+        fields = '__all__'
+
 

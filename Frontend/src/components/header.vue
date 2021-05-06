@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss" scoped>
   .el-row-wrapper {
+    z-index: 10;
     box-shadow: 0px -5px 15px 2px;
   }
 

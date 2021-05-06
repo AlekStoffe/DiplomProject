@@ -11,7 +11,7 @@
                     <el-input
                             placeholder="Имя"
                             size="50px"
-                            v-model="registry.login"
+                            v-model="formModel.username"
                             clearable
                     />
                 </el-form-item>
@@ -19,20 +19,25 @@
                     <el-input
                             placeholder="Почта"
                             size="50px"
-                            v-model="registry.email"
+                            v-model="formModel.email"
                             clearable
                     />
                 </el-form-item>
                 <el-form-item>
                     <el-input
                             placeholder="Пароль"
-                            v-model="registry.password"
+                            v-model="formModel.password"
                             show-password
                     />
                 </el-form-item>
                 <el-form :inline="true">
                     <el-form-item>
-                        <el-button type="primary">Регистрация</el-button>
+                        <el-button
+                            type="primary"
+                            @click="registry"
+                        >
+                          Регистрация
+                        </el-button>
                     </el-form-item>
                 </el-form>
             </el-form>
@@ -41,17 +46,31 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "Registration",
         data() {
             return {
-                registry: {
-                    name: '',
+                formModel: {
+                    username: '',
                     email: '',
                     password: '',
                 },
             };
         },
+      methods: {
+        async registry() {
+          const data = this.formModel;
+          const response = await axios.post('auth/users/', {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            data,
+        })
+          console.log(response)
+        },
+      },
     }
 </script>
 

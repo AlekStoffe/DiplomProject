@@ -12,4 +12,9 @@ export default new Vuex.Store({
             state.isAuth = value;
         },
     },
+    // actions: {
+    //     // registry(payload) {
+    //     //
+    //     // },
+    // }
 })

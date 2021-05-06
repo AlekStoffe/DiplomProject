@@ -4,7 +4,7 @@
                 :gutter="40"
         >
             <el-col class="cards-list-title">
-                <span>Ваши предприятия:</span>
+                <span>Ваши профили:</span>
             </el-col>
             <el-col
                     style="padding: 0px"
@@ -32,7 +32,7 @@
                 <el-button
                         class="add-industry-button"
                         @click="_openAddFormIndustry"
-                >Добавить предприятие</el-button>
+                >Добавить профиль</el-button>
             </el-col>
         </el-row>
     </div>
@@ -75,7 +75,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
     .industries-wrapper {
         width: 60%;
         margin: 100px auto;

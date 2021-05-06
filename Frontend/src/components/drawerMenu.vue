@@ -44,7 +44,7 @@
                             icon="el-icon-s-shop"
                             style="font-size: 16px"
                             @click="_openMyIndustry"
-                    >Мои предприятия
+                    >Профили
                     </el-button>
                 </el-col>
                 <el-col class="menu-items">

@@ -7,7 +7,7 @@ import Map from '../components/map.vue';
 import BuyOrders from '../components/buyOrders.vue';
 import ShareFood from '../components/shareFood.vue';
 import MyIndustry from '../components/myIndustry.vue';
-import AddIndustry from '../components/addIndustry.vue';
+import AddIndustry from '../components/addProfile.vue';
 import IndustryPage from '../components/industryPage.vue';
 
 Vue.use(VueRouter)
