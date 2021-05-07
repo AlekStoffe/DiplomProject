@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
 import django_filters.rest_framework
 from rest_framework import permissions
 from . import serializers
 from . import models
+from django.contrib.auth.models import User
 
 
 
@@ -29,19 +32,22 @@ class CompanyMapView(generics.ListAPIView):
 #вывод инфы о компании c едой
 class CompanyInfoView(generics.ListAPIView):
     queryset = models.Company.objects.all()
-    serializer_class = serializers.CompanyInfoSerilizers
+    serializer_class = serializers.CompanyInfoSerializers
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ['id']
 
 #вывод инфы о компаниия c едой юзера
 class CompanyUserView(generics.ListAPIView):
     queryset = models.Company.objects.all()
-    serializer_class = serializers.CompanyInfoSerilizers
+    serializer_class = serializers.CompanyUserDetatilSerializers
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ['user']
 
-
-
+class CompanyNameView(generics.ListAPIView):
+    queryset = models.Company.objects.exclude(lat=0.0).exclude(lon=0.0)
+    serializer_class = serializers.CompanyMapSerializers
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ['name']
 
 
 
@@ -80,9 +86,15 @@ class FoodListView3(generics.ListAPIView):
 
 #Создание телефона
 class TelephoneUserView(generics.CreateAPIView):
-    serializer_class = serializers.TelephoneSerilizers
+    serializer_class = serializers.TelephoneSerializers
 
 #Обновление удаление телефона
 class TelephoneDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = serializers.TelephoneSerilizers
+    serializer_class = serializers.TelephoneSerializers
     queryset = models.Profile.objects.all()
+
+class UserInfoView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ['id']

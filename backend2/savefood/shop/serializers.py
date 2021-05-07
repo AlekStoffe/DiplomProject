@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from . import models
+from django.contrib.auth.models import User
 
-#---------------------Сериализаторы компаний--------------------------#
 
-#Создание компании
+
+#компания
 class CompanyDetailSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Company
@@ -13,9 +14,13 @@ class CompanyDetailSerializers(serializers.ModelSerializer):
 class CompanyMapSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Company
-        fields = ('name', 'image', 'description', 'address', 'lat', 'lon', 'id')
+        fields = ('name', 'image', 'address', 'lat', 'lon', 'id')
 
-
+#Компании юзера
+class CompanyUserDetatilSerializers(serializers.ModelSerializer):
+    class Meta:
+        models.Company
+        fields = ('name', 'image', 'food_type', 'id')
 
 
 
@@ -30,11 +35,11 @@ class FoodSerializers(serializers.ModelSerializer):
 class FoodCartSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Food
-        fields = ('name',  'price')
+        fields = ('name',  'price', 'quantity', 'company')
 
 
 #Вывод информации о компании с едой
-class CompanyInfoSerilizers(serializers.ModelSerializer):
+class CompanyInfoSerializers(serializers.ModelSerializer):
     food = FoodSerializers(source='company', many=True, read_only=True)
     class Meta:
         model = models.Company
@@ -42,10 +47,14 @@ class CompanyInfoSerilizers(serializers.ModelSerializer):
 
 
 
-#Добавление телефона к пользователю
-class TelephoneSerilizers(serializers.ModelSerializer):
+#телефон
+class TelephoneSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Profile
         fields = '__all__'
 
-
+class UserSerializer(serializers.ModelSerializer):
+    profile = TelephoneSerializers()
+    class Meta:
+        model = User
+        fields = ['id', 'username','first_name', 'last_name', 'profile']

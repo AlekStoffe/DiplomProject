@@ -44,10 +44,15 @@ class Company(models.Model):
         (8, 'Гипермаркет'),
         (9, 'Cash&Carry'),
         (10, 'Прилавок/киоск'),
-        (11, 'Частное предприятие'),
+        (11, 'Частное лицо'),
     )
     company_type = models.IntegerField(verbose_name='Тип компании:', choices=COMPANY_TYPES)
     user = models.ForeignKey(Users, verbose_name='Пользователь:', on_delete=models.CASCADE)
+    class Meta:
+        ordering = ('id',)
+
+    def __str__(self):
+        return str(self.name) + ' ' + str(self.user)
 
 #Модель еды
 class Food(models.Model):
@@ -66,9 +71,13 @@ class Food(models.Model):
         (7, 'Консервы'),
         (8, 'Бакалея'),
         (9, 'Кулинария'),
-        (10, 'Частная компания')
     )
     food_type = models.IntegerField(verbose_name='Тип продукта:', choices=FOOD_TYPES)
     company = models.ForeignKey(Company, verbose_name='Компания:', on_delete=models.CASCADE, related_name='company')
+    class Meta:
+        ordering = ('id',)
+
+    def __str__(self):
+        return str(self.name) + ' ' + str(self.company)
 
 #сделать отзывы(текстовые)
