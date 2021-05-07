@@ -71,37 +71,39 @@ class CartView(APIView):
         quantity = data.get('quantity')
         cart_item.quantity += quantity
         cart_item.save()
+
         if cart_item.quantity <= 0:
             cart_item.delete()
 
         cart = models.Cart.objects.get(user=user, order=False)
         cart_items = models.CartItem.objects.filter(user=user, cart=cart.id)
         total_price = 0
+
         for items in cart_items:
             total_price += items.price
+
         cart.total_price = total_price
         cart.save()
 
         return Response({'success': 'Товар обновлен'})
 
-    def delete(self, request):
-        user = request.user
+#удаление корзины
+class CartDelete(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request):
         data = request.data
-        cart_item = models.CartItem.objects.get(id=data.get('id'))
-        cart_item.delete()
-        cart = models.Cart.objects.filter(user=user, order=False).first()
-        queryset = models.CartItem.objects.filter(cart=cart)
-        serializer = CartItemSerializers(queryset, many=True)
-        return Response(serializer.data)
+        cart = models.Cart.objects.get(id=data.get('id'))
+        cart.delete()
+        return Response({'success': 'Корзина была удалена'})
 
 
 #Подтверждение корзины
 class CartConfirm(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    def post(self, request, company):
+    def post(self, request):
         user = request.user
-
-        cart = models.Cart.objects.filter(user=user, order=False, company=company).first()
+        data= request.data
+        cart = models.Cart.objects.filter(user=user, order=False, company=data.get('company')).first()
 
         if not cart:
             return Response({"success": "Добавьте товар в корзину"})
@@ -132,15 +134,16 @@ class СompanyOrderConfirm(generics.ListAPIView):
     queryset = models.Cart.objects.filter(order=True)
     serializer_class = CartSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filter_fields = ['company']
+    filter_fields = ['company',]
 
 
 #вывод подтвержденных корзина итемсов для юзера
 class OrderUserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    def get(self, request, pk):
+    def post(self, request):
         user = request.user
-        cart = models.Cart.objects.filter(user=user, order=True, pk=pk).first()
+        data = request.data
+        cart = models.Cart.objects.filter(user=user, order=True, pk=data.get('id')).first()
         queryset = models.CartItem.objects.filter(cart=cart)
         serializer = CartItemSerializers(queryset, many=True)
         return Response(serializer.data)
@@ -149,22 +152,34 @@ class OrderUserView(APIView):
 #вывод подтвержденных корзина итемсов для компании
 class OrderCompanyView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    def get(self, request, pk):
-        cart = models.Cart.objects.filter(order=True, pk=pk).first()
+    def get(self, request):
+        data = request.data
+        cart = models.Cart.objects.filter(order=True, pk=data.get('pk')).first()
         queryset = models.CartItem.objects.filter(cart=cart)
         serializer = CartItemSerializers(queryset, many=True)
         return Response(serializer.data)
 
 class OrderCancelCompanyView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    def post(self, request, pk):
-        cart = models.Cart.objects.filter(order=True, pk=pk)
+    def post(self, request):
+        data = request.data
+        cart = models.Cart.objects.filter(order=True, pk=data.get('pk'))
         cart.delete()
         return Response({'success': 'Заказ отменен'})
 
 class OrderAcceptCompanyView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    def post(self, request, pk):
-        cart = models.Cart.objects.filter(order=True, pk=pk)
+    def post(self, request):
+        data = request.data
+        for i in range(len(data)):
+            food = Food.objects.get(id=data[i]['id'])
+            quant = food.quantity - data[i]['quantity']
+            if quant <= 0:
+                food.delete()
+            else:
+                food.quantity = quant
+                food.save()
+        cart = models.Cart.objects.get(id=data[0]['cart'])
         cart.delete()
-        return Response({'success': 'Заказ подтвержден'})
+
+

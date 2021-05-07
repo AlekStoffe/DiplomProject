@@ -58,6 +58,7 @@ class Company(models.Model):
 class Food(models.Model):
     name = models.CharField(verbose_name='Название:', max_length=128)
     description = models.TextField(verbose_name='Описание:', blank=True)
+    old_price = models.CharField(verbose_name="Старая цена", blank=True, max_length=15)
     price = models.PositiveIntegerField(verbose_name='Цена:')
     quantity = models.PositiveIntegerField(verbose_name='Кол-во:')
     image = models.ImageField(verbose_name='Фото:', upload_to='images')
@@ -80,4 +81,3 @@ class Food(models.Model):
     def __str__(self):
         return str(self.name) + ' ' + str(self.company)
 
-#сделать отзывы(текстовые)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from . import models
-from shop.serializers import FoodCartSerializers
+from shop.serializers import FoodCartSerializers, FoodIdserializers
 
 class CartSerializers(serializers.ModelSerializer):
     class Meta:

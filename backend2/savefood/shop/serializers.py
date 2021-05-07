@@ -19,8 +19,8 @@ class CompanyMapSerializers(serializers.ModelSerializer):
 #Компании юзера
 class CompanyUserDetatilSerializers(serializers.ModelSerializer):
     class Meta:
-        models.Company
-        fields = ('name', 'image', 'food_type', 'id')
+        model = models.Company
+        fields = ('name', 'image', 'company_type', 'id')
 
 
 
@@ -30,6 +30,10 @@ class FoodSerializers(serializers.ModelSerializer):
         model = models.Food
         fields = '__all__'
 
+class FoodIdserializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Food
+        fields = ('pk',)
 
 #Еда для корзины
 class FoodCartSerializers(serializers.ModelSerializer):

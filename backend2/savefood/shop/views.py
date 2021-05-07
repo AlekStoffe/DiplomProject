@@ -98,3 +98,4 @@ class UserInfoView(generics.ListAPIView):
     serializer_class = serializers.UserSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ['id']
+
