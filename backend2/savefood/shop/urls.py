@@ -20,6 +20,10 @@ urlpatterns = [
 
     path('user/telephone/', views.TelephoneUserView.as_view()), #добавление телефона
     path('user/telephone/<int:pk>', views.TelephoneDetailView.as_view()), #удаление/обновление телефона
-    path('user/info/', views.UserInfoView.as_view())#поиск инфы о пользователи по id (?id=)
+    path('user/info/', views.UserInfoView.as_view()),#поиск инфы о пользователи по id (?id=)
 
+    path('comment/create/', views.ReviewCreateView.as_view()), #создание комента
+    path('company/comment/', views.CompanyReviewList.as_view()), #вывод коментариев компании(чтобы их получить надо в теле пост запроса отправить id компании)
+    path('comment/delete/', views.ReviewDelete().as_view()),#удаление коментариев компании(чтобы удалить надо в теле пост запроса отправить id комментария)
+    path('company/avgscore/', views.ReviewAvgScoreCompany.as_view())#вывод средней оценки  компании(чтобы его получить надо в теле пост запроса отправить id компании)
 ]

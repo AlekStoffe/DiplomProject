@@ -2,13 +2,15 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
+from django.http import HttpResponse
+import json
 from rest_framework.views import APIView
 import django_filters.rest_framework
 from rest_framework import permissions
 from . import serializers
 from . import models
 from django.contrib.auth.models import User
-
+from django.db.models import Avg
 
 
 
@@ -95,7 +97,34 @@ class TelephoneDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class UserInfoView(generics.ListAPIView):
     queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+    serializer_class = serializers.UserSerializers
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ['id']
+
+
+class ReviewCreateView(generics.CreateAPIView):
+    serializer_class = serializers.ReviewSerializers
+
+
+class CompanyReviewList(generics.ListAPIView):
+    queryset = models.Review.objects.all()
+    serializer_class = serializers.ReviewSerializers
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_fields = ['company']
+
+class ReviewDelete(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request):
+        data = request.data
+        user = request.user
+        review = models.Review.objects.get(user=user, id=data.get('id'))
+        review.delete()
+        return Response({'success': 'Комментарий удален'})
+
+class ReviewAvgScoreCompany(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request):
+        data = request.data
+        review_score_avg = models.Review.objects.filter(company=data.get('company')).aggregate(Avg('score'))
+        return Response(review_score_avg)
 

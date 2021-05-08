@@ -32,6 +32,7 @@ MEDIA_URL = '/media/'
 # Путь хранения картинок
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+
 ALLOWED_HOSTS = []
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -128,7 +129,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
+
 
 USE_I18N = True
 

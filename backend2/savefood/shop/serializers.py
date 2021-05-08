@@ -39,7 +39,7 @@ class FoodIdserializers(serializers.ModelSerializer):
 class FoodCartSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Food
-        fields = ('name',  'price', 'quantity', 'company')
+        fields = ('name',  'price', 'quantity', 'company', 'id')
 
 
 #Вывод информации о компании с едой
@@ -57,8 +57,14 @@ class TelephoneSerializers(serializers.ModelSerializer):
         model = models.Profile
         fields = '__all__'
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializers(serializers.ModelSerializer):
     profile = TelephoneSerializers()
     class Meta:
         model = User
-        fields = ['id', 'username','first_name', 'last_name', 'profile']
+        fields = ('id', 'username','first_name', 'last_name', 'profile')
+
+class ReviewSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Review
+        fields = '__all__'
+

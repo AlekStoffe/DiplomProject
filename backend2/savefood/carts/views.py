@@ -152,9 +152,9 @@ class OrderUserView(APIView):
 #вывод подтвержденных корзина итемсов для компании
 class OrderCompanyView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    def get(self, request):
+    def post(self, request):
         data = request.data
-        cart = models.Cart.objects.filter(order=True, pk=data.get('pk')).first()
+        cart = models.Cart.objects.filter(order=True, pk=data.get('id')).first()
         queryset = models.CartItem.objects.filter(cart=cart)
         serializer = CartItemSerializers(queryset, many=True)
         return Response(serializer.data)
@@ -163,7 +163,7 @@ class OrderCancelCompanyView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def post(self, request):
         data = request.data
-        cart = models.Cart.objects.filter(order=True, pk=data.get('pk'))
+        cart = models.Cart.objects.filter(order=True, pk=data.get('id'))
         cart.delete()
         return Response({'success': 'Заказ отменен'})
 

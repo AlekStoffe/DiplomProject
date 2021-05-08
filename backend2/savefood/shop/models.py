@@ -76,6 +76,7 @@ class Food(models.Model):
     )
     food_type = models.IntegerField(verbose_name='Тип продукта:', choices=FOOD_TYPES)
     company = models.ForeignKey(Company, verbose_name='Компания:', on_delete=models.CASCADE, related_name='company')
+
     class Meta:
         ordering = ('id',)
 
@@ -85,6 +86,9 @@ class Food(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     company = models.ForeignKey(Company, verbose_name="Предприятие", on_delete=models.CASCADE,)
-    score = models.PositiveIntegerField(verbose_name="Оценка", validators=[MinValueValidator(1), MaxValueValidator(5)])
-    comment = models.TextField(verbose_name="Оценка")
+    score = models.FloatField(verbose_name="Оценка", validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.TextField(verbose_name="Комментарий")
     data_time = models.DateTimeField(verbose_name="Время", auto_now=True)
+
+    class Meta:
+        ordering = ('data_time',)
