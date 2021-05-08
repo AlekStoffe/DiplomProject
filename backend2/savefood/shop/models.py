@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import MaxValueValidator, MinValueValidator
 Users = get_user_model()
 
 
@@ -81,3 +82,9 @@ class Food(models.Model):
     def __str__(self):
         return str(self.name) + ' ' + str(self.company)
 
+class Review(models.Model):
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, verbose_name="Предприятие", on_delete=models.CASCADE,)
+    score = models.PositiveIntegerField(verbose_name="Оценка", validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.TextField(verbose_name="Оценка")
+    data_time = models.DateTimeField(verbose_name="Время", auto_now=True)
