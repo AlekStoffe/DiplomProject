@@ -23,9 +23,20 @@ class CompanyUserDetatilSerializers(serializers.ModelSerializer):
         fields = ('name', 'image', 'company_type', 'id')
 
 
+#Название компаний для вывода еды
+class CompanyNameSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Company
+        fields = ('name',)
 
 #Еда
 class FoodSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Food
+        fields = '__all__'
+
+class FoodSerializersList(serializers.ModelSerializer):
+    company = CompanyNameSerializers()
     class Meta:
         model = models.Food
         fields = '__all__'
@@ -62,6 +73,12 @@ class UserSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username','first_name', 'last_name', 'profile')
+
+class UserInfoTrashSerializers(serializers.ModelSerializer):
+    profile = TelephoneSerializers()
+    class Meta:
+        model = User
+        fields = ('username','first_name', 'last_name', 'profile')
 
 class ReviewSerializers(serializers.ModelSerializer):
     class Meta:

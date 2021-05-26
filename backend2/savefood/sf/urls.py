@@ -26,6 +26,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('', include('carts.urls')),
     path('', include('shop.urls')),
+    path('', include('waste.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

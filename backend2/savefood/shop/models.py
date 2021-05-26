@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.validators import MaxValueValidator, MinValueValidator
+from PIL import Image
 Users = get_user_model()
 
 
@@ -29,7 +30,7 @@ class Company(models.Model):
     name = models.CharField(verbose_name='Название:', max_length=128, unique=True)
     email = models.EmailField(verbose_name='Почта', blank=True)
     description = models.TextField(verbose_name='Описание:', blank=True)
-    image = models.ImageField(verbose_name='Фото:', upload_to='images')
+    image = models.ImageField(verbose_name='Фото:', upload_to='images', default='images/company.jpg')
     telephone = models.CharField(verbose_name='Телефон:', max_length=11)
     address = models.CharField(verbose_name='Адрес:', max_length=128, blank=True)
     lat = models.FloatField(verbose_name='Широта:', default=0.0)
@@ -55,6 +56,14 @@ class Company(models.Model):
     def __str__(self):
         return str(self.name) + ' ' + str(self.user)
 
+    def save(self, *args, **kwargs):
+        super(Company, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 #Модель еды
 class Food(models.Model):
     name = models.CharField(verbose_name='Название:', max_length=128)
@@ -62,7 +71,7 @@ class Food(models.Model):
     old_price = models.CharField(verbose_name="Старая цена", blank=True, max_length=15)
     price = models.PositiveIntegerField(verbose_name='Цена:')
     quantity = models.PositiveIntegerField(verbose_name='Кол-во:')
-    image = models.ImageField(verbose_name='Фото:', upload_to='images')
+    image = models.ImageField(verbose_name='Фото:', upload_to='images',  default='images/food.jpg')
     FOOD_TYPES = (
         (1, 'Мясо и мясопродукты'),
         (2, 'Рыба и морепродукты'),
@@ -82,6 +91,15 @@ class Food(models.Model):
 
     def __str__(self):
         return str(self.name) + ' ' + str(self.company)
+
+    def save(self, *args, **kwargs):
+        super(Food, self).save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
 class Review(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)

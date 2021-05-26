@@ -11,6 +11,7 @@ from . import serializers
 from . import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from rest_framework import filters
 
 
 
@@ -48,8 +49,8 @@ class CompanyUserView(generics.ListAPIView):
 class CompanyNameView(generics.ListAPIView):
     queryset = models.Company.objects.exclude(lat=0.0).exclude(lon=0.0)
     serializer_class = serializers.CompanyMapSerializers
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filter_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['^name']
 
 
 
@@ -66,22 +67,26 @@ class FoodDetailView(generics.RetrieveUpdateDestroyAPIView):
 #Вывод по типам еды
 class FoodFilterListView(generics.ListAPIView):
     queryset = models.Food.objects.all()
-    serializer_class = serializers.FoodSerializers
+    serializer_class = serializers.FoodSerializersList
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ['food_type']
+
+
+
+
 
 #вывод на мейн страницу
 class FoodListView1(generics.ListAPIView):
     queryset = models.Food.objects.filter(food_type='1').reverse()[:5]
-    serializer_class = serializers.FoodSerializers
+    serializer_class = serializers.FoodSerializersList
 
 class FoodListView2(generics.ListAPIView):
     queryset = models.Food.objects.filter(food_type='2').reverse()[:5]
-    serializer_class = serializers.FoodSerializers
+    serializer_class = serializers.FoodSerializersList
 
 class FoodListView3(generics.ListAPIView):
     queryset = models.Food.objects.filter(food_type='3').reverse()[:5]
-    serializer_class = serializers.FoodSerializers
+    serializer_class = serializers.FoodSerializersList
 
 
 

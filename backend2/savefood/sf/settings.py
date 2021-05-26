@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'shop',
     'django_filters',
     'corsheaders',
-    'carts'
+    'carts',
+    'waste',
 ]
 
 MIDDLEWARE = [
