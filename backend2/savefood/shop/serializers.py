@@ -27,7 +27,7 @@ class CompanyUserDetatilSerializers(serializers.ModelSerializer):
 class CompanyNameSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.Company
-        fields = ('name',)
+        fields = ('name', 'id')
 
 #Еда
 class FoodSerializers(serializers.ModelSerializer):
@@ -78,7 +78,7 @@ class UserInfoTrashSerializers(serializers.ModelSerializer):
     profile = TelephoneSerializers()
     class Meta:
         model = User
-        fields = ('username','first_name', 'last_name', 'profile')
+        fields = ('username', 'first_name', 'last_name', 'profile')
 
 class ReviewSerializers(serializers.ModelSerializer):
     class Meta:
