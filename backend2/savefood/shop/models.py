@@ -14,6 +14,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     telephone = models.CharField(verbose_name='Телефон:', max_length=11)
 
+    class Meta:
+        verbose_name = 'Телефон пользователя'
+        verbose_name_plural = 'Телефоны пользователей'
+
+    def __str__(self):
+        return str(self.telephone) + ' / ' + str(self.user)
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -52,9 +59,11 @@ class Company(models.Model):
     user = models.ForeignKey(Users, verbose_name='Пользователь:', on_delete=models.CASCADE)
     class Meta:
         ordering = ('id',)
+        verbose_name = 'Предприятие'
+        verbose_name_plural = 'Предприятия'
 
     def __str__(self):
-        return str(self.name) + ' ' + str(self.user)
+        return str(self.name) + ' / ' + str(self.user)
 
     def save(self, *args, **kwargs):
         super(Company, self).save(*args, **kwargs)
@@ -64,6 +73,7 @@ class Company(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
 #Модель еды
 class Food(models.Model):
     name = models.CharField(verbose_name='Название:', max_length=128)
@@ -88,9 +98,12 @@ class Food(models.Model):
 
     class Meta:
         ordering = ('id',)
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
+
 
     def __str__(self):
-        return str(self.name) + ' ' + str(self.company)
+        return str(self.name) + ' / ' + str(self.company)
 
     def save(self, *args, **kwargs):
         super(Food, self).save(*args, **kwargs)
@@ -110,3 +123,8 @@ class Review(models.Model):
 
     class Meta:
         ordering = ('data_time',)
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return str(self.user) + ' / ' +  str(self.score)

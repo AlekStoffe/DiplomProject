@@ -10,8 +10,13 @@ class Cart(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     order = models.BooleanField(default=False)
     total_price = models.FloatField(default=0)
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
     def __str__(self):
-        return str(self.user.username) + " " + str(self.total_price) + " " + str(self.order)
+        return str(self.user.username) + "/ " + str(self.company) + ' / ' + str(self.order)
 
 
 class CartItem(models.Model):
@@ -22,8 +27,12 @@ class CartItem(models.Model):
     price = models.PositiveIntegerField(default=0)
     quantity = models.IntegerField(default=1)
 
+    class Meta:
+        verbose_name = 'Итем корзины'
+        verbose_name_plural = 'Итемы корзины'
+
     def __str__(self):
-        return str(self.user.username) + " " + str(self.food.name) + " " + str(self.items_order)
+        return str(self.food) + " / " + str(self.items_order)
 
     def total(self):
         total = 0.0
