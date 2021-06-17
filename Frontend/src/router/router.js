@@ -11,6 +11,7 @@ import AddIndustry from '../components/addProfile.vue';
 import IndustryPage from '../components/industryPage.vue';
 import FindFood from '../components/findFood.vue';
 import CommentsPage from '../components/commentsPage.vue';
+import RefusePage from '../components/refuses/refusePage.vue';
 
 Vue.use(VueRouter)
 
@@ -28,5 +29,6 @@ export default new VueRouter ({
         { path: '/industry/:id', component: IndustryPage, props: true },
         { path: '/findFood', component: FindFood },
         { path: '/comments/:id', component: CommentsPage, props: true },
+        { path: '/refuse/', component: RefusePage },
     ]
 })

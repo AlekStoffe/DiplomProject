@@ -80,7 +80,13 @@ class UserInfoTrashSerializers(serializers.ModelSerializer):
         model = User
         fields = ('username', 'first_name', 'last_name', 'profile')
 
+class UserNameSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)
+
 class ReviewSerializers(serializers.ModelSerializer):
+    user = UserNameSerializers()
     class Meta:
         model = models.Review
         fields = '__all__'

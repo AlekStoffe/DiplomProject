@@ -68,6 +68,15 @@
                 </el-col>
                 <el-col class="menu-items">
                     <el-button
+                        type="text"
+                        icon="el-icon-delete"
+                        style="font-size: 16px"
+                        @click="_openRefusePage"
+                    >Отходы
+                    </el-button>
+                </el-col>
+                <el-col class="menu-items">
+                    <el-button
                         class="exit-button"
                         type="text"
                         icon="el-icon-close"
@@ -141,6 +150,11 @@ export default {
             this.visible = false;
             this.$router.push('/findFood');
         },
+
+        _openRefusePage() {
+            this.visible = false;
+            this.$router.push('/refuse');
+        }
     },
 }
 </script>
@@ -164,6 +178,6 @@ export default {
 }
 
 .exit-button {
-    margin-top: 600px;
+    margin-top: 550px;
 }
 </style>

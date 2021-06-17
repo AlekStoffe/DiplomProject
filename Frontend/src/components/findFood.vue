@@ -34,13 +34,13 @@
                     style="padding: 0px"
                     :span="8"
                     v-for="item in selectedFood"
-                    :key="item.name"
+                    :key="item.id"
                 >
                     <el-card
                         span="8"
                         class="card-item"
                         :body-style="{ padding: '0px' }"
-                        @click.native="_openIndustryPage(item.company)"
+                        @click.native="_openIndustryPage(item.company.id)"
                     >
                         <img
                             :src="item.image"
@@ -52,7 +52,7 @@
                             </div>
                             <div style="display: flex; justify-content: space-between">
                                 <div>
-                                    {{ item.company }}
+                                    {{ item.company.name }}
                                 </div>
                                 <div style="font-size: 14px; font-weight: bold">
                                     {{ item.price }} Руб

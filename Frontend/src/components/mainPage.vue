@@ -15,7 +15,7 @@
                 style="margin: 0 auto 40px"
             >
                 <el-col class="cards-list-title">
-                    <span>Товары 1</span>
+                    <span>Мясо и мясопродукты</span>
                 </el-col>
                 <el-col
                     style="padding: 0px"
@@ -27,7 +27,7 @@
                         span="8"
                         class="card-item"
                         :body-style="{ padding: '0px' }"
-                        @click.native="_openIndustryPage(item.company)"
+                        @click.native="_openIndustryPage(item.company.id)"
                     >
                         <img :src="item.image"
                              class="image"/>
@@ -35,7 +35,7 @@
                             <div style="margin-bottom: 10px; font-weight: bold; font-size: 18px">{{ item.name }}</div>
                             <div style="display: flex; justify-content: space-between">
                                 <div>
-                                    {{ item.company }}
+                                    {{ item.company.name }}
                                 </div>
                                 <div style="font-size: 14px; font-weight: bold">
                                     {{ item.price }} Руб
@@ -57,7 +57,7 @@
                 style="margin: 0 auto 40px"
             >
                 <el-col class="cards-list-title">
-                    <span>Товары 2</span>
+                    <span>Рыба и морепродукты</span>
                 </el-col>
                 <el-col
                     style="padding: 0px"
@@ -69,7 +69,7 @@
                         span="8"
                         class="card-item"
                         :body-style="{ padding: '0px' }"
-                        @click.native="_openIndustryPage(item.company)"
+                        @click.native="_openIndustryPage(item.company.id)"
                     >
                         <img :src="item.image"
                              class="image"/>
@@ -77,7 +77,7 @@
                             <div style="margin-bottom: 10px; font-weight: bold; font-size: 18px">{{ item.name }}</div>
                             <div style="display: flex; justify-content: space-between">
                                 <div>
-                                    {{ item.company }}
+                                    {{ item.company.name }}
                                 </div>
                                 <div style="font-size: 14px; font-weight: bold">
                                     {{ item.price }} Руб
@@ -99,7 +99,7 @@
                 style="margin: 0 auto 40px"
             >
                 <el-col class="cards-list-title">
-                    <span>Товары 3</span>
+                    <span>Молоко и молокопродукты</span>
                 </el-col>
                 <el-col
                     style="padding: 0px"
@@ -111,7 +111,7 @@
                         span="8"
                         class="card-item"
                         :body-style="{ padding: '0px' }"
-                        @click.native="_openIndustryPage(item.company)"
+                        @click.native="_openIndustryPage(item.company.id)"
                     >
                         <img :src="item.image"
                              class="image"/>
@@ -119,7 +119,7 @@
                             <div style="margin-bottom: 10px; font-weight: bold; font-size: 18px">{{ item.name }}</div>
                             <div style="display: flex; justify-content: space-between">
                                 <div>
-                                    {{ item.company }}
+                                    {{ item.company.name }}
                                 </div>
                                 <div style="font-size: 14px; font-weight: bold">
                                     {{ item.price }} Руб

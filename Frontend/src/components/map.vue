@@ -25,7 +25,9 @@
                     >
                         <img
                             :src="item.image"
-                            class="image"/>
+                            class="image"
+                            v-tooltip="'You have new messages.'"
+                        />
                         <div style="padding: 14px;">
                             <div style="margin-bottom: 10px; font-weight: bold">{{ item.name }}</div>
                             <div>{{ item.address }}</div>
@@ -53,14 +55,25 @@
                     :streetViewControl="false"
                     style="width: 100%; height: 100%;"
                 >
-                    <gmap-marker
+                    <div
                         v-for="res in mapCompanies"
                         :key="res.id"
-                        :position="{ lat: res.lat, lng: res.lon }"
-                        :clickable="true"
-                        :draggable="false"
                     >
-                    </gmap-marker>
+                        <el-tooltip
+                            placement="top"
+                            :content="res.name"
+                            effect="dark"
+                        >
+                            <gmap-marker
+                                :position="{ lat: res.lat, lng: res.lon }"
+                                :clickable="true"
+                                :draggable="false"
+                                title="Название организации"
+                                @click="_openIndustryPage(res.id)"
+                            >
+                            </gmap-marker>
+                        </el-tooltip>
+                    </div>
                 </gmap-map>
             </template>
         </el-col>

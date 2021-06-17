@@ -21,6 +21,8 @@ const state = {
     selectedFood: [],
     profileComments: [],
     avgScore: 0,
+    giveAwayRefuseItems: [],
+    giveRefuseItems: [],
 };
 
 export default new Vuex.Store({
@@ -73,6 +75,12 @@ export default new Vuex.Store({
         },
         setAvgScore(state, value) {
             state.avgScore = value;
+        },
+        setGiveAwayRefuseItems(state, value) {
+            state.giveAwayRefuseItems = value;
+        },
+        setGiveRefuseItems(state, value) {
+            state.giveRefuseItems = value;
         },
     },
     actions: {
@@ -382,6 +390,48 @@ export default new Vuex.Store({
                     return Promise.reject()
                 })
                 .finally(() => commit('setPageIsLoading', false))
-        }
+        },
+        fetchGiveAwayRefuseItems({ commit }) {
+            commit('setPageIsLoading', true)
+            return axios.get('trash/')
+                .then((response) => commit('setGiveAwayRefuseItems', response.data))
+                .catch(() => {
+                    return Promise.reject()
+                })
+                .finally(() => commit('setPageIsLoading', false))
+        },
+        fetchGiveRefuseItems({ commit }) {
+            commit('setPageIsLoading', true)
+            return axios.get('trash/give/')
+                .then((response) => commit('setGiveRefuseItems', response.data))
+                .catch(() => {
+                    return Promise.reject()
+                })
+                .finally(() => commit('setPageIsLoading', false))
+        },
+        createGiveAwayRefuseItem({ commit }, payload) {
+            commit('setPageIsLoading', true)
+            return axios.post('trash/create/', payload, {
+                headers: {
+                    Authorization: 'Token ' + localStorage.token,
+                }
+            })
+                .catch(() => {
+                    return Promise.reject()
+                })
+                .finally(() => commit('setPageIsLoading', false))
+        },
+        createGiveRefuseItem({ commit }, payload) {
+            commit('setPageIsLoading', true)
+            return axios.post('trash/give/create/', payload, {
+                headers: {
+                    Authorization: 'Token ' + localStorage.token,
+                }
+            })
+                .catch(() => {
+                    return Promise.reject()
+                })
+                .finally(() => commit('setPageIsLoading', false))
+        },
     },
 })

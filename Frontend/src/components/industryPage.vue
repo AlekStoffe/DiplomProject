@@ -20,13 +20,13 @@
                         Оставить отзыв
                     </el-button>
                     <div>
-                        <div>{{ industryDataPage.name }}</div>
+                        <h2>{{ industryDataPage.name }}</h2>
                     </div>
                     <div>
                         <div>{{ industryDataPage.description }}</div>
                     </div>
-                    <div>
-                        <div>Телефон:</div>
+                    <div style="margin-top: 10px">
+                        <div>Телефон: 89308975754</div>
                     </div>
                     <div>
                         <div>Адрес: {{ industryDataPage.address }}</div>
@@ -58,7 +58,10 @@
                                 <div style="margin-bottom: 10px; font-weight: bold">{{ item.name }}</div>
                                 <div style="display: flex; justify-content: space-between">
                                     <div>Кол-во: {{ item.quantity }}</div>
-                                    <div>{{ item.price }} Руб</div>
+                                    <div class="price-wrapper">
+                                        <div>{{ item.price }} Руб</div>
+                                        <div style="text-decoration: line-through">{{ item.old_price }} Руб</div>
+                                    </div>
                                 </div>
                             </div>
                         </el-card>
@@ -109,11 +112,14 @@
                                             @click="_expandQuantityCardItem({ quantity: item.food.quantity, id: item.id })"
                                         ></i>
                                     </div>
-                                    <div class="shop-basket-old-price">{{ item.oldPrice }} ₽</div>
+<!--                                    <div class="shop-basket-old-price">{{ item.old_price }} ₽</div>-->
                                 </div>
                             </div>
                         </div>
                         <div class="confirm-order">
+<!--                            <div style="margin-bottom: 5px">-->
+<!--                                Итоговая стоимость: {{ }}-->
+<!--                            </div>-->
                             <el-button
                                 style="width: 100%"
                                 @click="_confirmOrder"
@@ -161,6 +167,7 @@ export default {
     },
     methods: {
         _fetchIndustryPage() {
+            console.log(this.id)
             this.$store.dispatch('fetchIndustryPage', {id: this.id})
         },
 
@@ -324,7 +331,7 @@ export default {
 .confirm-order {
     position: absolute;
     width: 340px;
-    top: 840px;
+    top: 830px;
 }
 
 .comment-button {

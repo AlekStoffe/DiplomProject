@@ -1,95 +1,115 @@
 <template>
-    <div
-        v-loading="pageIsLoading"
-        class="share-food-wrapper"
-    >
-        <div class="share-food-title">
-            Поделиться едой
-        </div>
-        <div class="share-food-form-wrapper">
-            <el-form
-                ref="form"
-                :model="formModel"
-                :rules="formValidationRules"
-            >
-                <el-form-item
-                    label="Выберит профиль, от лица которого хотите добавить продукт:"
-                    prop="company"
+    <el-container style="height: 908px; overflow: auto">
+        <div
+            v-loading="pageIsLoading"
+            class="share-food-wrapper"
+        >
+            <div class="share-food-title">
+                Поделиться едой
+            </div>
+            <div class="share-food-form-wrapper">
+                <el-form
+                    ref="form"
+                    :model="formModel"
+                    :rules="formValidationRules"
                 >
-                    <el-select
-                        v-model="formModel.company"
-                        placeholder="Выберите тип продукта"
-                        style="width: 100%"
+                    <el-form-item
+                        label="Выберит профиль, от лица которого хотите добавить продукт:"
+                        prop="company"
                     >
-                        <el-option
-                            v-for="item in myProfiles"
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id"
-                        />
-                    </el-select>
-                </el-form-item>
-                <el-form-item
-                    label="Тип продукта:"
-                    prop="food_type"
-                >
-                    <el-select
-                        v-model="formModel.food_type"
-                        placeholder="Выберите тип продукта"
-                        style="width: 100%"
+                        <el-select
+                            v-model="formModel.company"
+                            placeholder="Выберите тип продукта"
+                            style="width: 100%"
+                        >
+                            <el-option
+                                v-for="item in myProfiles"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id"
+                            />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item
+                        label="Тип продукта:"
+                        prop="food_type"
                     >
-                        <el-option
-                            v-for="item in foodTypeList"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
+                        <el-select
+                            v-model="formModel.food_type"
+                            placeholder="Выберите тип продукта"
+                            style="width: 100%"
+                        >
+                            <el-option
+                                v-for="item in foodTypeList"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item
+                        label="Название продукта:"
+                        prop="name"
+                    >
+                        <el-input
+                            placeholder="Введите название"
+                            size="50px"
+                            v-model="formModel.name"
+                            clearable
                         />
-                    </el-select>
-                </el-form-item>
-                <el-form-item
-                    label="Название продукта:"
-                    prop="name"
+                    </el-form-item>
+                    <el-form-item label="Количество:">
+                        <el-input-number
+                            placeholder="Введите количество"
+                            v-model="formModel.quantity"
+                            style="margin-right: 300px"
+                            :min="1"
+                        />
+                    </el-form-item>
+                    <el-form-item label="Цена:">
+                        <el-input
+                            placeholder="Введите количество"
+                            v-model="formModel.old_price"
+                        >
+                            <template slot="append">Руб</template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="Скидка:">
+                        <el-input
+                            placeholder="Введите количество"
+                            v-model="sale"
+                            @change.native="_calculateNewPrice"
+                        >
+                            <template slot="append">%</template>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="Новая цена:">
+                        <el-input
+                            placeholder="Введите количество"
+                            v-model="formModel.price"
+                            disabled
+                        />
+                    </el-form-item>
+                    <el-upload
+                        ref="upload"
+                        action="dummy"
+                        class="upload-field"
+                        :auto-upload="false"
+                        :on-exceed="handleExceed"
+                        :limit="limit"
+                    >
+                        <el-button size="small" type="primary">Загрузить изображение продукта</el-button>
+                    </el-upload>
+                </el-form>
+                <el-button
+                    class="save-button"
+                    @click="createFood"
                 >
-                    <el-input
-                        placeholder="Введите название"
-                        size="50px"
-                        v-model="formModel.name"
-                        clearable
-                    />
-                </el-form-item>
-                <el-form-item label="Количество:">
-                    <el-input-number
-                        placeholder="Введите количество"
-                        v-model="formModel.quantity"
-                        style="margin-right: 300px"
-                        :min="1"
-                    />
-                </el-form-item>
-                <el-form-item label="Цена:">
-                    <el-input
-                        placeholder="Введите количество"
-                        v-model="formModel.price"
-                    />
-                </el-form-item>
-                <el-upload
-                    ref="upload"
-                    action="dummy"
-                    class="upload-field"
-                    :auto-upload="false"
-                    :on-exceed="handleExceed"
-                    :limit="limit"
-                >
-                    <el-button size="small" type="primary">Загрузить изображение продукта</el-button>
-                </el-upload>
-            </el-form>
-            <el-button
-                class="save-button"
-                @click="createFood"
-            >
-                Сохранить
-            </el-button>
+                    Сохранить
+                </el-button>
+            </div>
         </div>
-    </div>
+    </el-container>
 </template>
 
 <script>
@@ -105,8 +125,10 @@ export default {
                 name: '',
                 food_type: '',
                 quantity: '',
+                old_price: '',
                 price: '',
             },
+            sale: '',
             formModel: {},
             dialogVisible: false,
             limit: 1,
@@ -149,9 +171,11 @@ export default {
             this.formModel = this.defaultFormModel;
             this.$refs.form.resetFields();
         },
+
         handleExceed() {
             this.$message.warning(`Можно загрузить только 1 изображение.`);
         },
+
         createFood() {
             const dataForCreate = {
                 ...this.formModel,
@@ -177,6 +201,10 @@ export default {
                 return false;
             })
         },
+
+        _calculateNewPrice() {
+            this.formModel.price = this.formModel.old_price - (this.formModel.old_price / 100 * this.sale);
+        },
     },
 }
 </script>
@@ -184,7 +212,7 @@ export default {
 <style lang="scss" scoped>
 .share-food-wrapper {
     width: 50%;
-    margin: 100px auto;
+    margin: 40px auto;
     text-align: center;
 }
 
@@ -204,6 +232,7 @@ export default {
 
 .save-button {
     margin-top: 40px;
+    margin-bottom: 50px;
     padding: 15px 50px;
 }
 </style>

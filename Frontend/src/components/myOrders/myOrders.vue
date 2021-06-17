@@ -6,7 +6,6 @@
         <el-radio-group
             v-model="orders_type"
         >
-        >
             <el-radio-button
                 :label="true"
             >
@@ -14,8 +13,6 @@
             </el-radio-button>
             <el-radio-button
                 :label="false"
-                @change="radioButtonChange(orders_type)"
-
             >
                 Заказали у вас
             </el-radio-button>
