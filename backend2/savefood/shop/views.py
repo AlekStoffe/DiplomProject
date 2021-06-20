@@ -77,7 +77,7 @@ class FoodFilterListView(generics.ListAPIView):
 
 #вывод на мейн страницу
 class FoodListView1(generics.ListAPIView):
-    queryset = models.Food.objects.filter(food_type='1').reverse()[:5]
+    queryset = models.Food.objects.filter(food_type='9').reverse()[:5]
     serializer_class = serializers.FoodSerializersList
 
 class FoodListView2(generics.ListAPIView):
@@ -85,7 +85,7 @@ class FoodListView2(generics.ListAPIView):
     serializer_class = serializers.FoodSerializersList
 
 class FoodListView3(generics.ListAPIView):
-    queryset = models.Food.objects.filter(food_type='3').reverse()[:5]
+    queryset = models.Food.objects.filter(food_type='1').reverse()[:5]
     serializer_class = serializers.FoodSerializersList
 
 
@@ -127,7 +127,6 @@ class ReviewDelete(APIView):
         return Response({'success': 'Комментарий удален'})
 
 class ReviewAvgScoreCompany(APIView):
-    permission_classes = [permissions.IsAuthenticated]
     def post(self, request):
         data = request.data
         review_score_avg = models.Review.objects.filter(company=data.get('company')).aggregate(Avg('score'))

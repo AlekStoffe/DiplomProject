@@ -380,11 +380,8 @@ export default new Vuex.Store({
         },
         fetchAvgScore({ commit }, payload) {
             commit('setPageIsLoading', true)
-            return axios.post('company/avgscore/', payload, {
-                headers: {
-                    Authorization: 'Token ' + localStorage.token,
-                },
-            })
+            return axios.post('company/avgscore/', payload
+            )
                 .then((response) => commit('setAvgScore', response.data.score__avg))
                 .catch(() => {
                     return Promise.reject()

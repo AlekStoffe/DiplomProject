@@ -15,7 +15,7 @@
                 style="margin: 0 auto 40px"
             >
                 <el-col class="cards-list-title">
-                    <span>Мясо и мясопродукты</span>
+                    <span>Кулинария</span>
                 </el-col>
                 <el-col
                     style="padding: 0px"
@@ -99,7 +99,7 @@
                 style="margin: 0 auto 40px"
             >
                 <el-col class="cards-list-title">
-                    <span>Молоко и молокопродукты</span>
+                    <span>Мясо и мясопродукты</span>
                 </el-col>
                 <el-col
                     style="padding: 0px"

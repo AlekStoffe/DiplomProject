@@ -68,7 +68,7 @@
                                 :position="{ lat: res.lat, lng: res.lon }"
                                 :clickable="true"
                                 :draggable="false"
-                                title="Название организации"
+                                :title="res.name"
                                 @click="_openIndustryPage(res.id)"
                             >
                             </gmap-marker>
