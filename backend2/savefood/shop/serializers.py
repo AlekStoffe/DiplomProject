@@ -52,21 +52,22 @@ class FoodCartSerializers(serializers.ModelSerializer):
         model = models.Food
         fields = ('name',  'price', 'quantity', 'company', 'id')
 
+#телефон
+class TelephoneSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Profile
+        fields = '__all__'
 
 #Вывод информации о компании с едой
 class CompanyInfoSerializers(serializers.ModelSerializer):
     food = FoodSerializers(source='company', many=True, read_only=True)
     class Meta:
         model = models.Company
-        fields = ('name', 'image', 'description', 'address', 'food')
+        fields = ('name', 'image', 'description', 'address', 'telephone', 'food', 'id')
 
 
 
-#телефон
-class TelephoneSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = models.Profile
-        fields = '__all__'
+
 
 class UserSerializers(serializers.ModelSerializer):
     profile = TelephoneSerializers()
