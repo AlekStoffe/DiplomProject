@@ -87,6 +87,7 @@
                                 placeholder="Введите количество"
                                 size="50px"
                                 v-model="giveAwayRefuseFormModel.quantity"
+                                :min="1"
                                 clearable
                             />
                         </el-form-item>
@@ -197,6 +198,7 @@
                                 placeholder="Введите количество"
                                 size="50px"
                                 v-model="giveRefuseFormModel.quantity"
+                                :min="1"
                                 clearable
                             />
                         </el-form-item>
@@ -224,14 +226,14 @@
                             />
                         </el-form-item>
                         <el-form-item
-                            label="дата"
+                            label="Дата"
                             prop="date"
                         >
                             <el-date-picker
                                 v-model="giveRefuseFormModel.date"
                                 type="date"
                                 format="dd.MM.yyyy"
-                                value-format="yyyy-MM-dd-HH-mm"
+                                value-format="yyyy-MM-dd"
                             >
                             </el-date-picker>
                         </el-form-item>
@@ -328,6 +330,7 @@ export default {
         _closeGiveRefuseFormDialog() {
             this.giveRefuseFormIsVisible = false;
             this.$refs.giveRefuseForm.resetFields();
+            this.$refs.upload.uploadFiles.length = 0;
         },
 
         _openGiveAwayRefuseFormDialog() {
@@ -337,6 +340,7 @@ export default {
         _closeGiveAwayRefuseFormDialog() {
             this.giveAwayRefuseFormIsVisible = false;
             this.$refs.giveAwayRefuseForm.resetFields();
+            this.$refs.upload.uploadFiles.length = 0;
         },
 
         createGiveRefuseItem() {
@@ -348,7 +352,12 @@ export default {
             let formData = new FormData()
             Object.keys(dataForCreate).forEach(key => formData.append(key, dataForCreate[key]))
             this.$store.dispatch('createGiveRefuseItem', formData)
-                .finally(() => this.$refs["give-refuse"].fetchGiveRefuseItems())
+                .finally(() => {
+                    if (!this.refuse_type) {
+                        this.$refs["give-refuse"].fetchGiveRefuseItems()
+                    }
+                    this._closeGiveRefuseFormDialog();
+                })
         },
 
         createGiveAwayRefuseItem() {
@@ -360,7 +369,12 @@ export default {
             let formData = new FormData()
             Object.keys(dataForCreate).forEach(key => formData.append(key, dataForCreate[key]))
             this.$store.dispatch('createGiveAwayRefuseItem', formData)
-                .finally(() => this.$refs["give-away-refuse"].fetchGiveAwayRefuseItems())
+                .finally(() => {
+                    if (this.refuse_type) {
+                        this.$refs["give-away-refuse"].fetchGiveAwayRefuseItems();
+                    }
+                    this._closeGiveAwayRefuseFormDialog()
+                })
         },
 
         handleExceed() {

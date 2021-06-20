@@ -102,7 +102,7 @@ export default {
     },
     watch: {
         searchField(newValue) {
-            this.$store.dispatch('searchFood', { name: newValue })
+            this.$store.dispatch('searchFood', { search: newValue })
         },
     },
     computed: {

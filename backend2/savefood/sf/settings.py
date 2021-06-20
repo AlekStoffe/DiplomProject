@@ -99,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'savefood',
         'USER': 'root',
-        'PASSWORD': '123321',
+        'PASSWORD': 'qweqwe',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
@@ -165,8 +165,8 @@ REST_FRAMEWORK = {
 #smtp
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'makcim8051@gmail.com'
-EMAIL_HOST_PASSWORD = 'Malenkyzlodey678'
+EMAIL_HOST_USER = 'stas999samox@gmail.com'
+EMAIL_HOST_PASSWORD = 'vandam123'
 EMAIL_PORT = 587
 
 

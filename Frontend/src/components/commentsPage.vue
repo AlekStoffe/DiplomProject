@@ -38,7 +38,7 @@
                 <div class="comment">
                     <div class="profile">
                         <div class="profile-name">
-                            {{ comment.user }}
+                            {{ comment.user.username }}
                         </div>
                         <el-rate
                             v-model="comment.score"

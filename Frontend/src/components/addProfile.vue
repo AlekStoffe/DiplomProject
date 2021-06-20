@@ -113,6 +113,7 @@
                     </el-form-item>
                     <el-upload
                         ref="upload"
+                        action="dummy"
                         class="upload-field"
                         :auto-upload="false"
                         :on-exceed="handleExceed"

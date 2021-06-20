@@ -26,7 +26,7 @@
                         <div>{{ industryDataPage.description }}</div>
                     </div>
                     <div style="margin-top: 10px">
-                        <div>Телефон: 89308975754</div>
+                        <div>Телефон: {{ industryDataPage.telephone }}</div>
                     </div>
                     <div>
                         <div>Адрес: {{ industryDataPage.address }}</div>

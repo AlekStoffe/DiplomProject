@@ -1,16 +1,12 @@
 <template>
     <div class="carousel-wrapper">
-        <el-carousel trigger="click">
-            <el-carousel-item
-                    class="carousel-item"
-                    v-for="item in items" :key="item"
-            >
-                <h3 class="carousel-content">{{ item }}</h3>
-            </el-carousel-item>
-        </el-carousel>
+        <div style="text-align: center; padding-top: 20px">
+            <img src="../assets/Daco_820723.png" style="width: 250px; height: 200px; padding-bottom: 30px">
+            <h2 class="carousel-title">Лишнюю еду и отходы превратим в доходы!!!</h2>
+        </div>
         <el-button
                 class="goToMaps"
-                type="primary"
+                type="success"
                 @click="_goToMaps"
         >
             Открыть на картах
@@ -37,14 +33,22 @@
 <style lang="scss" scoped>
     .carousel-wrapper{
         width: 1100px;
-        height: 500px;
+        height: 320px;
+        border-radius: 20px;
         margin: 50px auto;
+        background-color: cadetblue;
+    }
+
+    .carousel-title {
+        color: aliceblue;
+        font-family: "Consolas";
+        font-size: 26px;
     }
 
     .goToMaps {
         position: absolute;
         left: 437px;
-        bottom: 90px;
+        bottom: 80px;
         z-index: 2;
         width: 230px;
     }

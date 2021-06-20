@@ -168,7 +168,9 @@ export default {
     },
     methods: {
         fillFormModel() {
-            this.formModel = this.defaultFormModel;
+            this.formModel = { ...this.defaultFormModel };
+            this.sale = '';
+            this.$refs.upload.uploadFiles.length = 0;
             this.$refs.form.resetFields();
         },
 
