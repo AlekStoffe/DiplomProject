@@ -92,3 +92,7 @@ class ReviewSerializers(serializers.ModelSerializer):
         model = models.Review
         fields = '__all__'
 
+class ReviewDetailSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = models.Review
+        fields = '__all__'

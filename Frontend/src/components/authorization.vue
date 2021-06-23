@@ -40,7 +40,6 @@
             <el-button type="primary" @click="_openRegistration">Регистрация</el-button>
           </el-form-item>
         </el-form>
-        <el-button type="text">Забыли пароль или не можете войти?</el-button>
       </el-form>
     </div>
   </div>

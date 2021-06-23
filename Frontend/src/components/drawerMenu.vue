@@ -174,6 +174,7 @@ export default {
 }
 
 .menu-items-wrapper {
+    overflow: hidden;
     margin-top: 20px;
 }
 

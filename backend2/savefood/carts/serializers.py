@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from . import models
-from shop.serializers import FoodCartSerializers, FoodIdserializers
+from shop.serializers import FoodSerializersList, CompanyNameSerializers, FoodIdserializers
 
 class CartSerializers(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class CartSerializers(serializers.ModelSerializer):
 
 class CartItemSerializers(serializers.ModelSerializer):
     #cart = CartSerializers()
-    food = FoodCartSerializers()
+    food = FoodSerializersList()
     class Meta:
         model = models.CartItem
         fields = '__all__'
@@ -17,7 +17,8 @@ class CartItemSerializers(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
+    company = CompanyNameSerializers()
     class Meta:
         model = models.Cart
-        fields = ('user', 'company', 'order', 'total_price', 'pk')
+        fields = ('user', 'company', 'order', 'total_price', 'pk', 'company')
 

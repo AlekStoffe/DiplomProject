@@ -108,7 +108,7 @@ class UserInfoView(generics.ListAPIView):
 
 
 class ReviewCreateView(generics.CreateAPIView):
-    serializer_class = serializers.ReviewSerializers
+    serializer_class = serializers.ReviewDetailSerializers
 
 
 class CompanyReviewList(generics.ListAPIView):

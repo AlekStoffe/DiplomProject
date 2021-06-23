@@ -181,5 +181,5 @@ class OrderAcceptCompanyView(APIView):
                 food.save()
         cart = models.Cart.objects.get(id=data[0]['cart'])
         cart.delete()
-
+        return Response({'success': 'Заказ подтвержден'})
 

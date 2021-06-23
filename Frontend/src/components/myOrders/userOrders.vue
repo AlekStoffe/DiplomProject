@@ -25,8 +25,7 @@
                             </p>
                         </template>
                     </el-table-column>
-                    <el-table-column
-                        label="Operations">
+                    <el-table-column>
                         <template slot-scope="props">
                             <el-button
                                 style="width: 200px"
@@ -45,7 +44,13 @@
                 <el-table-column property="food.name" label="Название" width="200"></el-table-column>
                 <el-table-column property="quantity" label="Количество"></el-table-column>
                 <el-table-column property="food.price" label="Цена"></el-table-column>
-                <el-table-column property="food.company" label="Компания"></el-table-column>
+                <el-table-column label="Компания">
+                    <template slot-scope="props">
+                        <p>
+                            {{ props.row.food.company.name }}
+                        </p>
+                    </template>
+                </el-table-column>
             </el-table>
         </el-dialog>
     </div>
